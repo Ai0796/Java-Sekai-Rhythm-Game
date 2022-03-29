@@ -10,8 +10,9 @@ import java.awt.event.ActionEvent;
 
 public class FrameController {
     
-    private static StartScreen startScreen;
-    private static RhythmScreen rhythmScreen;
+    private StartScreen startScreen;
+    private RhythmScreen rhythmScreen;
+    private SongSelectionScreen songSelectionScreen;
     private Config config;
     private JFrame frame;
 
@@ -27,19 +28,14 @@ public class FrameController {
 
         JButton startButton = new JButton("Press To Start");
 
-        startButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                startRhythmGame();
-            }
-        });
-
-        startScreen = new StartScreen(frame, config, startButton);
-        rhythmScreen = new RhythmScreen(frame, config);
+        startScreen = new StartScreen(frame, config, this);
+        rhythmScreen = new RhythmScreen(frame, config, this);
+        songSelectionScreen = new SongSelectionScreen(frame, config, this);
 
         startScreen.show();
     }
 
-    private void startRhythmGame(){
+    public void startRhythmGame(){
         startScreen.hide();
         rhythmScreen.show();
 
@@ -48,5 +44,13 @@ public class FrameController {
         frame.invalidate();
         frame.validate();
         frame.repaint();
+    }
+
+    public void setResizableTrue() {
+        this.frame.setResizable(true);
+    }
+
+    public void setResizableFalse() {
+        this.frame.setResizable(false);
     }
 }

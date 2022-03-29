@@ -6,6 +6,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.Color;
 import java.awt.Font;
 
+import main.FrameController;
 import main.settings.Config;
 
 public class StartScreen implements InnerBaseGui{
@@ -14,6 +15,7 @@ public class StartScreen implements InnerBaseGui{
 
     private Config config;
     private JFrame frame;
+    private FrameController frameController;
 
     static private final int FONT_STYLE = 1;
     static private final double FONT_RATIO = 1.0 / 2.0; // Used to determine max font for the buttons
@@ -22,24 +24,19 @@ public class StartScreen implements InnerBaseGui{
 
     
 
-    public StartScreen(JFrame frame, Config config, JButton startButton){
+    public StartScreen(JFrame frame, Config config, FrameController frameController){
 
         this.config = config;
         this.frame = frame;
-        this.startButton = startButton;
+        this.frameController = frameController;
 
         frame.getContentPane().setBackground(Color.DARK_GRAY);
         
-        // startButton = new JButton("Press To Start");
-
-        startButton.setFocusPainted(false);
-        startButton.setBackground(Color.CYAN);
-        startButton.setForeground(Color.BLACK);
-
-        resetObjectPosition(this.config.getX(), this.config.getY());
+        startButton = new JButton("Press To Start");
 
         frame.getContentPane().add(startButton);
 
+        //Resizes on windows size change
         frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
                 int x = (int) componentEvent.getComponent().getSize().getWidth();
@@ -47,6 +44,14 @@ public class StartScreen implements InnerBaseGui{
                 resetObjectPosition(x, y);
             }
         });
+
+        startButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                frameController.startRhythmGame();
+            }
+        });
+
+        // startButton.addActionListener(new );
     }
 
 
@@ -79,6 +84,12 @@ public class StartScreen implements InnerBaseGui{
 
         frame.getContentPane().add(startButton);
 
+        startButton.setFocusPainted(false);
+        startButton.setBackground(Color.CYAN);
+        startButton.setForeground(Color.BLACK);
+
+        resetObjectPosition(this.config.getX(), this.config.getY());
+
         this.frame.setVisible(true);
     }
 
@@ -87,13 +98,5 @@ public class StartScreen implements InnerBaseGui{
         frame.getContentPane().removeAll();
 
         // this.frame.setVisible(false);
-    }
-
-    public void setResizableTrue(){
-        this.frame.setResizable(true);
-    }
-
-    public void setResizableFalse(){
-        this.frame.setResizable(false);
     }
 }
