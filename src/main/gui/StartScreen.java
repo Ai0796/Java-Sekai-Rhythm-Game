@@ -1,6 +1,9 @@
 package main.gui;
 
 import javax.swing.*;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.Color;
@@ -21,8 +24,6 @@ public class StartScreen implements InnerBaseGui{
     static private final double FONT_RATIO = 1.0 / 2.0; // Used to determine max font for the buttons
     static private final double BUTTON_HEIGHT_RATIO = 1.0 / 6.0;
     static private final double BUTTON_WIDTH_RATIO = 3.0 / 4.0;
-
-    
 
     public StartScreen(JFrame frame, Config config, FrameController frameController){
 

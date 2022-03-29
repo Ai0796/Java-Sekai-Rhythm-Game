@@ -29,7 +29,6 @@ public class FrameController {
         JButton startButton = new JButton("Press To Start");
 
         startScreen = new StartScreen(frame, config, this);
-        rhythmScreen = new RhythmScreen(frame, config, this);
         songSelectionScreen = new SongSelectionScreen(frame, config, this);
 
         startScreen.show();
@@ -37,9 +36,12 @@ public class FrameController {
 
     public void startRhythmGame(){
         startScreen.hide();
+        rhythmScreen = new RhythmScreen(frame, config, this);
+
+        this.setResizableFalse();
         rhythmScreen.show();
 
-        rhythmScreen.startGame();
+        // rhythmScreen.startGame();
 
         frame.invalidate();
         frame.validate();
