@@ -1,4 +1,4 @@
-package main;
+package main.notes;
 
 public interface Note {
 
@@ -8,6 +8,11 @@ public interface Note {
     }
     
     private int pointCalculation()
+    {
+        return -1;
+    }
+
+    private int getHitPoint()
     {
         return -1;
     }
