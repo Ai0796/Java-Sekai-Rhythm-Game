@@ -11,19 +11,22 @@ public class Lane {
     
     private int xPos;
     private int yPos;
-    private JFrame frame;
+    private int width;
+    private int height;
     private JPanel lane;
 
     public Lane(int xPos, int yPos, JFrame frame, int width, int height){
         this.xPos = xPos;
         this.yPos = yPos;
-        this.frame = frame;
+        this.width = width;
+        this.height = height;
         this.lane = new JPanel();
         this.lane.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        this.lane.setOpaque(false);
 
         frame.add(this.lane);
 
-        setPanelAbsolutePosition(this.lane, this.xPos, this.yPos, width, height);
+        setPanelAbsolutePosition(this.lane, this.xPos, this.yPos, this.width, this.height);
     }
 
     public void increment(int interval){
@@ -41,5 +44,25 @@ public class Lane {
         // System.out.printf("%d, %d, %d, %d\n", left, right, top, bottom);
 
         panel.setBounds(xPos, yPos, width, height);
+    }
+
+    public int getXPos()
+    {
+        return xPos;
+    }
+
+    public int getYPos()
+    {
+        return yPos;
+    }
+
+    public int getWidth()
+    {
+        return width;
+    }
+
+    public int getHeight()
+    {
+        return height;
     }
 }

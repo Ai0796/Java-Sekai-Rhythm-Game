@@ -1,6 +1,9 @@
 package main;
 
 import main.gui.RhythmScreen;
+import main.notes.Note;
+import main.notes.TapNote;
+import main.settings.Config;
 
 public class Conductor {
 
@@ -11,12 +14,27 @@ public class Conductor {
 
     private RhythmScreen rhythmScreen;
 
+    TapNote[] notes;
+
     public Conductor(double bpm, long finalPosition, RhythmScreen rhythmScreen){
         this.position = 0;
         this.bpm = bpm;
         this.finalPosition = finalPosition;
         this.rhythmScreen = rhythmScreen;
+        Config config = new Config();
         lastInstant = System.currentTimeMillis();
+
+        Lane[] lane = rhythmScreen.getLanes();
+        notes = new TapNote[1000];
+
+        for(int i = 0; i < config.getLanes(); i++)
+        {
+            TapNote note = new TapNote(rhythmScreen.getFrame(), lane[i], i * 1000);
+
+            System.out.println(note.getPosition(this.position)); 
+            
+            notes[i] = note;
+        }
     }
 
     public void incrementPosition(){
@@ -39,6 +57,12 @@ public class Conductor {
     }
 
     public void updateNotePosition(){
-        RhythmScreen.updateNotePosition(this.position);
+        for (TapNote tapNote : notes) {
+            if(tapNote == null){
+                break;
+            }
+            // System.out.println(tapNote.getPosition(this.position));
+            tapNote.DrawPosition(this.position);
+        }
     }
 }

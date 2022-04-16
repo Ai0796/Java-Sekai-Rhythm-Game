@@ -1,5 +1,5 @@
 package main.notes;
 
-public class holdNote implements Note{
+public class HoldNote implements Note{
     
 }

@@ -5,6 +5,9 @@ import java.io.IOException;
 
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+import java.nio.file.Paths;
+import java.util.Objects;
+import java.nio.file.Files;
 
 public class ExtractBeatmaps {
     private final String BEATMAP_PATH = "src\\main\\beatmaps";
@@ -17,13 +20,19 @@ public class ExtractBeatmaps {
 
     public void main(String startPath) {
         File dir = new File(startPath);
+        try {
+            Files.createDirectories(Paths.get(OUTPUT_PATH));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         extractFiles(dir.listFiles());
     }
 
     public void extractFiles(File[] files){
         for (File file : files) {
             //We don't want to extract directories or files that aren't osu beatmaps
-            if (!file.isDirectory() && file.getName().substring(file.getName().lastIndexOf(".") + 1) == FILE_EXTENSION) { 
+            if (!file.isDirectory() && Objects.equals(file.getName().substring(file.getName().lastIndexOf(".") + 1), FILE_EXTENSION)) { 
 
                 System.out.println("File: " + file.getAbsolutePath());
                 ZipFile zipFile = new ZipFile(file);

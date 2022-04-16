@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.Timer;
 
 public class FrameController {
     
@@ -42,10 +43,23 @@ public class FrameController {
         rhythmScreen.show();
 
         // rhythmScreen.startGame();
-
         frame.invalidate();
         frame.validate();
         frame.repaint();
+        
+        Conductor conductor = new Conductor(200, 10000000, rhythmScreen);
+
+        // while(conductor.getPosition() < conductor.getFinalPosition()){
+        new Timer(16, new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                System.out.println(conductor.getPosition());
+                conductor.incrementPosition();
+                conductor.updateNotePosition();
+                frame.invalidate();
+                frame.validate();
+                frame.repaint();
+            }
+        }).start();
     }
 
     public void setResizableTrue() {

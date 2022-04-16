@@ -28,6 +28,7 @@ public class RhythmScreen implements InnerBaseGui{
         double laneWidth = this.frame.getContentPane().getSize().getWidth() * laneWidthRatio;
         double laneHeight = this.frame.getContentPane().getSize().getHeight() * laneHeightRatio;
 
+        //Create the lanes for the rhythm game
         for(int i = 0; i < config.getLanes(); i++){
             //Calculates lane positions in a method that centers the lanes
             int xPos = (int) (laneWidth / 2.0 + (laneWidth * (i - (config.getLanes() / 2.0))));
@@ -52,5 +53,14 @@ public class RhythmScreen implements InnerBaseGui{
 
     public void hide(){
         this.frame.setVisible(false);
+    }
+
+    public Lane[] getLanes(){
+        return this.lanes;
+    }
+
+    public JFrame getFrame()
+    {
+        return this.frame;
     }
 }
