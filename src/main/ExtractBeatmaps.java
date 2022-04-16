@@ -34,7 +34,7 @@ public class ExtractBeatmaps {
             //We don't want to extract directories or files that aren't osu beatmaps
             if (!file.isDirectory() && Objects.equals(file.getName().substring(file.getName().lastIndexOf(".") + 1), FILE_EXTENSION)) { 
 
-                System.out.println("File: " + file.getAbsolutePath());
+                System.out.println("File Extraced: " + file.getName());
                 ZipFile zipFile = new ZipFile(file);
                 try {
                     zipFile.extractAll(OUTPUT_PATH);
