@@ -1,8 +1,5 @@
 package main.parser.types;
 
-import java.sql.Time;
-import java.util.ArrayList;
-
 public class OsuEditor extends Parser {
     public int[] Bookmarks;
     public double DistanceSpacing;
@@ -10,6 +7,7 @@ public class OsuEditor extends Parser {
     public int GridSize;
     public double TimelineZoom;
 
+    @Override
     public void parse(String line)
     {
         String[] splitList = line.split("\\s*:\\s*");

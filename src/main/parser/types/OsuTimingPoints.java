@@ -14,6 +14,7 @@ public class OsuTimingPoints extends Parser {
         this.currentTimingPoint = 0;
     }
 
+    @Override
     public void parse(String line)
     {
         TimingPoint timingPoint = new TimingPoint(line);

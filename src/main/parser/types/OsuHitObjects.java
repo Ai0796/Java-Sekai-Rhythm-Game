@@ -15,6 +15,7 @@ public class OsuHitObjects extends Parser {
         currentObject = 0;
     }
 
+    @Override
     public void parse(String line){
         HitObject hitObject = new HitObject(line);
         hitObjects.add(hitObject);

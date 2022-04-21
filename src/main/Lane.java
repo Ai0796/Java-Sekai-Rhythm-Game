@@ -3,7 +3,6 @@ package main;
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -13,37 +12,29 @@ public class Lane {
     private int yPos;
     private int width;
     private int height;
-    private JPanel lane;
+    private JPanel lanePanel;
 
     public Lane(int xPos, int yPos, JFrame frame, int width, int height){
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = width;
         this.height = height;
-        this.lane = new JPanel();
-        this.lane.setBorder(BorderFactory.createLineBorder(Color.BLUE));
-        this.lane.setOpaque(false);
+        this.lanePanel = new JPanel();
+        this.lanePanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        this.lanePanel.setOpaque(false);
 
-        frame.add(this.lane);
+        frame.add(this.lanePanel);
 
-        setPanelAbsolutePosition(this.lane, this.xPos, this.yPos, this.width, this.height);
+        setPanelAbsolutePosition(this.lanePanel, this.xPos, this.yPos, this.width, this.height);
     }
 
-    public void increment(int interval){
-
-    }
-
-    private void setPanelAbsolutePosition(JPanel panel, int xCenter, int yCenter, int width, int height) {
-
-        // System.out.printf("%d, %d, %d, %d\n", xCenter, yCenter, width, height);
-
+    private void setPanelAbsolutePosition(JPanel panel, int xCenter, int yCenter, int width, int height) 
+    {
         // xPos and yPos are the top left corner of the rectangle
-        int xPos = xCenter - width / 2;
-        int yPos = yCenter - height / 2; // Java starts from the top left so going up is lowering the y value
+        int x = xCenter - width / 2;
+        int y = yCenter - height / 2; // Java starts from the top left so going up is lowering the y value
 
-        // System.out.printf("%d, %d, %d, %d\n", left, right, top, bottom);
-
-        panel.setBounds(xPos, yPos, width, height);
+        panel.setBounds(x, y, width, height);
     }
 
     public int getXPos()

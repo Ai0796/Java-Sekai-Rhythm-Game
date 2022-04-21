@@ -1,9 +1,5 @@
 package main.parser.types;
 
-import java.util.ArrayList;
-
-import javax.swing.text.html.HTML.Tag;
-
 public class OsuMetadata extends Parser {
 
     public String Title;
@@ -17,6 +13,7 @@ public class OsuMetadata extends Parser {
     public int BeatmapID;
     public int BeatmapSetID; 
 
+    @Override
     public void parse(String line)
     {
         String[] splitList = line.split("\\s*:\\s*");

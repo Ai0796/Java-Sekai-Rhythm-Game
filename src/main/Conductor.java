@@ -72,12 +72,13 @@ public class Conductor {
         return this.finalPosition;
     }
 
-    //Removes all notes outside of the field
+    
     public void updateNotes()
     {
         ArrayList<Integer> removeList = new ArrayList<Integer>();
         double position;
 
+        //Removes all notes outside of the field
         for(int i = 0; i < notes.size(); i++){
 
             
@@ -85,7 +86,7 @@ public class Conductor {
             position = this.notes.get(i).getPosition(this.position);
             if(position > (1 + BUFFER_SIZE / size))
             {
-                System.out.printf("Removed Note at time: %d\n", this.position);
+                System.out.printf("Removed Note at time: %d%n", this.position);
                 removeList.add(i);
             }
         }
@@ -97,7 +98,6 @@ public class Conductor {
         }
 
         //Adds notes that will then appear
-
         //Stores last hit object in case it didn't reach the time
         if(this.currentHitObject != null)
         {
@@ -113,7 +113,7 @@ public class Conductor {
                 TapNote note = new TapNote(this.rhythmScreen.getFrame(), this.lanes[lane], this.currentHitObject.time, this.size);
                 notes.add(note);
 
-                System.out.printf("Added Note at time: %d\n", this.position);
+                System.out.printf("Added Note at time: %d%n", this.position);
 
                 this.currentHitObject = this.beatmap.osuHitObjects.getNextHitObject();
             }

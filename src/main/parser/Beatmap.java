@@ -17,6 +17,7 @@ import main.parser.types.Parser;
 
 public class Beatmap {
 
+    //TODO make accessors
     public OsuGeneral osuGeneral;
     public OsuEditor osuEditor;
     public OsuMetadata osuMetadata;

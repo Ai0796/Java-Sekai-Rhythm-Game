@@ -10,16 +10,12 @@ import java.util.Objects;
 import java.nio.file.Files;
 
 public class ExtractBeatmaps {
-    private final String BEATMAP_PATH = "src\\main\\beatmaps";
-    private final String OUTPUT_PATH = "src\\main\\temp_beatmaps";
-    private final String FILE_EXTENSION = "osz";
+    private static final String BEATMAP_PATH = "src\\main\\beatmaps";
+    private static final String OUTPUT_PATH = "src\\main\\temp_beatmaps";
+    private static final String FILE_EXTENSION = "osz";
 
-    public ExtractBeatmaps(){
-        main(BEATMAP_PATH);
-    }
-
-    public void main(String startPath) {
-        File dir = new File(startPath);
+    public static void main() {
+        File dir = new File(BEATMAP_PATH);
         try {
             Files.createDirectories(Paths.get(OUTPUT_PATH));
         } catch (IOException e) {
@@ -29,7 +25,7 @@ public class ExtractBeatmaps {
         extractFiles(dir.listFiles());
     }
 
-    public void extractFiles(File[] files){
+    public static void extractFiles(File[] files){
         for (File file : files) {
             //We don't want to extract directories or files that aren't osu beatmaps
             if (!file.isDirectory() && Objects.equals(file.getName().substring(file.getName().lastIndexOf(".") + 1), FILE_EXTENSION)) { 

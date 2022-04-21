@@ -18,18 +18,16 @@ public class StartScreen implements InnerBaseGui{
 
     private Config config;
     private JFrame frame;
-    private FrameController frameController;
 
-    static private final int FONT_STYLE = 1;
-    static private final double FONT_RATIO = 1.0 / 2.0; // Used to determine max font for the buttons
-    static private final double BUTTON_HEIGHT_RATIO = 1.0 / 6.0;
-    static private final double BUTTON_WIDTH_RATIO = 3.0 / 4.0;
+    private static final int FONT_STYLE = 1;
+    private static final double FONT_RATIO = 1.0 / 2.0; // Used to determine max font for the buttons
+    private static final double BUTTON_HEIGHT_RATIO = 1.0 / 6.0;
+    private static final double BUTTON_WIDTH_RATIO = 3.0 / 4.0;
 
     public StartScreen(JFrame frame, Config config, FrameController frameController){
 
         this.config = config;
         this.frame = frame;
-        this.frameController = frameController;
 
         frame.getContentPane().setBackground(Color.DARK_GRAY);
         
@@ -39,6 +37,7 @@ public class StartScreen implements InnerBaseGui{
 
         //Resizes on windows size change
         frame.addComponentListener(new ComponentAdapter() {
+            @Override
             public void componentResized(ComponentEvent componentEvent) {
                 int x = (int) componentEvent.getComponent().getSize().getWidth();
                 int y = (int) componentEvent.getComponent().getSize().getHeight();
@@ -51,8 +50,6 @@ public class StartScreen implements InnerBaseGui{
                 frameController.startRhythmGame();
             }
         });
-
-        // startButton.addActionListener(new );
     }
 
 
@@ -91,7 +88,5 @@ public class StartScreen implements InnerBaseGui{
     public void hide(){
 
         frame.getContentPane().removeAll();
-
-        // this.frame.setVisible(false);
     }
 }

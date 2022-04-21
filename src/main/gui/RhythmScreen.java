@@ -2,31 +2,25 @@ package main.gui;
 
 import javax.swing.JFrame;
 
-import main.Conductor;
-import main.FrameController;
 import main.Lane;
 import main.settings.Config;
 
 public class RhythmScreen implements InnerBaseGui{
 
     private JFrame frame;
-    private Config config;
-    private FrameController frameController;
 
-    private static final double laneWidthRatio = 1.0 / 10.0;
-    private static final double laneHeightRatio = 1.0;
+    private static final double LANE_WIDTH_RATIO = 1.0 / 10.0;
+    private static final double LANE_HEIGHT_RATIO = 1.0;
     private Lane[] lanes;
     
-    public RhythmScreen(JFrame frame, Config config, FrameController frameController){
+    public RhythmScreen(JFrame frame, Config config){
         
-        this.config = config;
         this.frame = frame;
-        this.frameController = frameController;
 
         lanes = new Lane[config.getLanes()];
 
-        double laneWidth = this.frame.getContentPane().getSize().getWidth() * laneWidthRatio;
-        double laneHeight = this.frame.getContentPane().getSize().getHeight() * laneHeightRatio;
+        double laneWidth = this.frame.getContentPane().getSize().getWidth() * LANE_WIDTH_RATIO;
+        double laneHeight = this.frame.getContentPane().getSize().getHeight() * LANE_HEIGHT_RATIO;
 
         //Create the lanes for the rhythm game
         for(int i = 0; i < config.getLanes(); i++){

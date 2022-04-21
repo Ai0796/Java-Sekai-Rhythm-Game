@@ -8,6 +8,7 @@ public class OsuDifficulty extends Parser {
     public double SliderMultiplier;
     public double SliderTickRate;
 
+    @Override
     public void parse(String line)
     {
         String[] splitList = line.split("\\s*:\\s*");

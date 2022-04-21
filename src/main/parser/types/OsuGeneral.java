@@ -1,7 +1,5 @@
 package main.parser.types;
 
-import java.util.Stack;
-
 public class OsuGeneral extends Parser {
 
     public String AudioFilename;
@@ -24,6 +22,7 @@ public class OsuGeneral extends Parser {
     public boolean WidescreenStoryboard;
     public boolean SamplesMatchPlaybackRate;
 
+    @Override
     public void parse(String line)
     {
         String[] splitList = line.split("\\s*:\\s*");
