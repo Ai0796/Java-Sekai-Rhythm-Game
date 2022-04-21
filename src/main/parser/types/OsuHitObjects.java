@@ -11,6 +11,7 @@ public class OsuHitObjects extends Parser {
 
     public OsuHitObjects()
     {
+        hitObjects = new ArrayList<HitObject>();
         currentObject = 0;
     }
 
@@ -21,6 +22,22 @@ public class OsuHitObjects extends Parser {
 
     public HitObject getNextHitObject()
     {
-        return hitObjects.get(currentObject++);
+
+        HitObject returnObject = null;
+        
+        if (currentObject < hitObjects.size())
+        {
+            returnObject = hitObjects.get(currentObject++);
+        }
+
+        return returnObject;
+    }
+
+    public int getLength()
+    {
+        int start = 0;
+        int end = hitObjects.size() - 1;
+
+        return hitObjects.get(end).time -hitObjects.get(start).time;
     }
 }

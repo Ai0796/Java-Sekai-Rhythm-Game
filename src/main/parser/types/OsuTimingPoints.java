@@ -6,11 +6,12 @@ import main.parser.types.primitives.TimingPoint;
 
 public class OsuTimingPoints extends Parser {
     public ArrayList<TimingPoint> timingPoints;
-    public int currentTimingPoint;
+    private int currentTimingPoint;
 
     public OsuTimingPoints()
     {
-        currentTimingPoint = 0;
+        timingPoints = new ArrayList<TimingPoint>();
+        this.currentTimingPoint = 0;
     }
 
     public void parse(String line)
@@ -19,8 +20,14 @@ public class OsuTimingPoints extends Parser {
         timingPoints.add(timingPoint);
     }
 
-    public TimingPoint getTimingPoint()
+    public TimingPoint getNextTimingPoint()
     {
-        return timingPoints.get(currentTimingPoint++);
+        TimingPoint returnObject = null;
+
+        if (currentTimingPoint < timingPoints.size()) {
+            returnObject = timingPoints.get(currentTimingPoint++);
+        }
+
+        return returnObject;
     }
 }

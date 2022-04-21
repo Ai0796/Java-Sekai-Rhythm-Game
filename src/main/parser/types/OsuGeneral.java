@@ -2,8 +2,6 @@ package main.parser.types;
 
 import java.util.Stack;
 
-import kotlin.random.Random.Default;
-
 public class OsuGeneral extends Parser {
 
     public String AudioFilename;

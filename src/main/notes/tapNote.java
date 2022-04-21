@@ -11,11 +11,12 @@ public class TapNote implements Note{
     private JPanel notePanel;
     private double height;
     private double width;
+    private double size;
 
     private static final double widthRatio = 1.0 / 10.0;
     private static final double heightRatio = 1.0 / 20.0;
 
-    public TapNote(JFrame frame, Lane lane, int hitPoint)
+    public TapNote(JFrame frame, Lane lane, int hitPoint, double size)
     {
         this.lane = lane;
         this.hitPoint = hitPoint;
@@ -23,13 +24,14 @@ public class TapNote implements Note{
         this.notePanel.setBackground(Color.CYAN);
         this.height = frame.getHeight() * heightRatio;
         this.width = frame.getWidth() * widthRatio;
+        this.size = size;
 
         frame.getContentPane().add(this.notePanel);
     }
 
     public double getPosition(long currentPoint)
     {
-        return (currentPoint - hitPoint) / 5000.0;
+        return (currentPoint - hitPoint) / size;
     }
 
     public void DrawPosition(long currentPoint)

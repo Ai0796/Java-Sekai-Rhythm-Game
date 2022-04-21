@@ -60,8 +60,6 @@ public class StartScreen implements InnerBaseGui{
 
         Font buttonFont = new Font(this.config.getButtonFont(), FONT_STYLE, (int)(FONT_RATIO * BUTTON_HEIGHT_RATIO * y));
 
-        System.out.println(BUTTON_WIDTH_RATIO);
-
         setButtonAbsolutePosition(startButton, x / 2, y / 2, (int)(x * BUTTON_WIDTH_RATIO), (int)(y * BUTTON_HEIGHT_RATIO));
         startButton.setFont(buttonFont);
     }
@@ -69,13 +67,9 @@ public class StartScreen implements InnerBaseGui{
     //Given x and y centers and width and height puts a rectangle with the center being on xCenter, yCenter
     private void setButtonAbsolutePosition(JButton button, int xCenter, int yCenter, int width, int height) {
 
-        System.out.printf("%d, %d, %d, %d\n", xCenter, yCenter, width, height);
-
         //xPos and yPos are the top left corner of the rectangle
         int xPos = xCenter - width / 2;
         int yPos = yCenter - height / 2; //Java starts from the top left so going up is lowering the y value
-
-        // System.out.printf("%d, %d, %d, %d\n", left, right, top, bottom);
 
         button.setBounds(xPos, yPos, width, height);
     }

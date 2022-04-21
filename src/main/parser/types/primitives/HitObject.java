@@ -9,7 +9,7 @@ public class HitObject {
     public int type;
     public int hitSound;
 
-    //TODO
+    //TODO Add these variables
     //Unused
     public ArrayList<Integer> objectParams; //Won't be parsed
     public int hitSample; //Unused as of now
@@ -22,5 +22,6 @@ public class HitObject {
         y = Integer.parseInt(splitList[1]);
         time = Integer.parseInt(splitList[2]);
         type = Integer.parseInt(splitList[3]);
+
     }
 }

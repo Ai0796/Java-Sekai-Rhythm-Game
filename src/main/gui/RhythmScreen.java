@@ -36,7 +36,6 @@ public class RhythmScreen implements InnerBaseGui{
             //Add the width to center the lanes
             xPos += this.frame.getContentPane().getSize().getWidth() / 2;
 
-            System.out.printf("%d, %.2f\n", xPos, laneWidth);
             int yPos = (int) (laneHeight / 2.0);
             Lane lane = new Lane(xPos, yPos, this.frame, (int) laneWidth, (int) laneHeight);
             lanes[i] = lane;
