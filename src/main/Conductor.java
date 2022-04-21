@@ -51,14 +51,6 @@ public class Conductor {
         this.currentTimingPoint = this.beatmap.osuTimingPoints.getNextTimingPoint();
 
         updateNotes();
-        // for(int i = 0; i < config.getLanes(); i++)
-        // {
-        //     TapNote note = new TapNote(rhythmScreen.getFrame(), lane[i], i * 1000);
-
-        //     System.out.println(note.getPosition(this.position)); 
-            
-        //     notes.add(note);
-        // }
     }
 
     public void incrementPosition(){
@@ -109,7 +101,7 @@ public class Conductor {
         //Stores last hit object in case it didn't reach the time
         if(this.currentHitObject != null)
         {
-            while(Long.valueOf(this.currentHitObject.time) < this.position)
+            while(Long.valueOf(this.currentHitObject.time) < this.position + size)
             {
                 int lane = (int) (this.currentHitObject.x / laneSize);
                 

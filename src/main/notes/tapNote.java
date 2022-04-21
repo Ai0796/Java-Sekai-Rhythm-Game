@@ -31,7 +31,7 @@ public class TapNote implements Note{
 
     public double getPosition(long currentPoint)
     {
-        return (currentPoint - hitPoint) / size;
+        return ((currentPoint - hitPoint) / size) + 1.0;
     }
 
     public void DrawPosition(long currentPoint)

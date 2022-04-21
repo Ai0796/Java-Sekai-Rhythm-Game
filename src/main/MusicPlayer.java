@@ -15,9 +15,6 @@ class MusicPlayer{
 
     public MusicPlayer(String path) {
         this.path = path;
-    }
-
-    public void play() {
         try {
             FileInputStream fileInputStream = new FileInputStream(path);
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
@@ -25,7 +22,9 @@ class MusicPlayer{
         } catch (Exception e) {
             System.out.println(e.getStackTrace());
         }
+    }
 
+    public void play() {
         new Thread() {
             public void run() {
                 try {
