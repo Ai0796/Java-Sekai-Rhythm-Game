@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import main.Lane;
 
 public class TapNote implements Note{
+
     private Lane lane;
     private int hitPoint;
     private JPanel notePanel;
@@ -52,5 +53,10 @@ public class TapNote implements Note{
         int yPos = yCenter - height / 2; // Java starts from the top left so going up is lowering the y value
 
         this.notePanel.setBounds(xPos, yPos, width, height);
+    }
+
+    public int pointCalculation()
+    {
+        return 0;
     }
 }

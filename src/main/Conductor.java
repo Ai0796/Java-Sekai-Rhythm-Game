@@ -3,7 +3,6 @@ package main;
 import java.util.ArrayList;
 
 import main.gui.RhythmScreen;
-import main.notes.Note;
 import main.notes.TapNote;
 import main.parser.Beatmap;
 import main.parser.types.primitives.HitObject;
@@ -76,15 +75,15 @@ public class Conductor {
     public void updateNotes()
     {
         ArrayList<Integer> removeList = new ArrayList<Integer>();
-        double position;
+        double notePosition;
 
         //Removes all notes outside of the field
         for(int i = 0; i < notes.size(); i++){
 
             
 
-            position = this.notes.get(i).getPosition(this.position);
-            if(position > (1 + BUFFER_SIZE / size))
+            notePosition = this.notes.get(i).getPosition(this.position);
+            if(notePosition > (1 + BUFFER_SIZE / size))
             {
                 System.out.printf("Removed Note at time: %d%n", this.position);
                 removeList.add(i);
