@@ -8,7 +8,7 @@ import main.settings.ReadPropertyFile;
 import main.settings.Config;
 
 import main.FrameController;
-import main.parser.BeatmapParser;
+// import main.parser.BeatmapParser;
 
 public class Main {
 
@@ -20,7 +20,7 @@ public class Main {
         // startScreen = new StartScreen();
         Config config = new Config();
         ExtractBeatmaps readfile = new ExtractBeatmaps();
-        BeatmapParser beatmap = new BeatmapParser("src\\main\\temp_beatmaps\\Rachie - Thought Crime ([Aero]) [Icun's Hard].osu");
+        // BeatmapParser beatmap = new BeatmapParser("src\\main\\temp_beatmaps\\Rachie - Thought Crime ([Aero]) [Icun's Hard].osu");
 
         frameController = new FrameController(config);
 

@@ -35,9 +35,15 @@ public class ExtractBeatmaps {
             if (!file.isDirectory() && Objects.equals(file.getName().substring(file.getName().lastIndexOf(".") + 1), FILE_EXTENSION)) { 
 
                 System.out.println("File Extraced: " + file.getName());
+                try {
+                    Files.createDirectories(Paths.get(OUTPUT_PATH + "\\" + file.getName()));
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 ZipFile zipFile = new ZipFile(file);
                 try {
-                    zipFile.extractAll(OUTPUT_PATH);
+                    zipFile.extractAll(OUTPUT_PATH + "\\" + file.getName());
                 } catch (ZipException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
