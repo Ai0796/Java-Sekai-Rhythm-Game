@@ -1,13 +1,14 @@
 package main;
 
 import main.gui.*;
-import main.gui.JPictureBox.SizeMode;
 import main.parser.Beatmap;
 import main.parser.ImageIconParser;
 import main.settings.Config;
 
 import javax.swing.ImageIcon;
-import java.awt.Component;
+
+import java.util.logging.Level;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -55,29 +56,18 @@ public class FrameController {
         frame.validate();
         frame.repaint();
 
-        Beatmap beatmap = new Beatmap("src\\main\\temp_beatmaps\\Rachie - Thought Crime ([Aero]) [Izzel's Insane].osu");
-        MusicPlayer music = new MusicPlayer("src\\main\\temp_beatmaps\\audio.mp3");
+        Beatmap beatmap = new Beatmap("src\\main\\temp_beatmaps\\257607 xi - FREEDOM DiVE.osz\\xi - FREEDOM DiVE (elchxyrlia) [Arles].osu");
+        MusicPlayer music = new MusicPlayer("src\\main\\temp_beatmaps\\257607 xi - FREEDOM DiVE.osz\\12 FREEDOM DiVE.mp3");
 
-        try {
-            JLabel background = new JLabel();
-            ImageIcon backgroundImage = scaleImage(frame.getHeight(), ImageIconParser.getImageIcon("src\\main\\temp_beatmaps\\66041517_p0.png"));
-            int xPos = (frame.getWidth() / 2) - (backgroundImage.getIconWidth() / 2);
-            
-            background.setIcon(backgroundImage);
-            background.setBounds(xPos, 0, backgroundImage.getIconWidth(), backgroundImage.getIconHeight());
-            frame.getLayeredPane().add(background, PaneConstants.BACKGROUND);
+       setBackgroundImage("src\\main\\temp_beatmaps\\257607 xi - FREEDOM DiVE.osz\\dive.png");
 
-            System.out.println("Background loaded");
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            System.out.println("Background failed to load");
-            e1.printStackTrace();
-        }
-
+        music.play();
         Conductor conductor = new Conductor(rhythmScreen, beatmap, config);
+
+        Main.logger.log(Level.INFO, String.format("Conductor loaded at: %d", System.currentTimeMillis()));
         new Timer(16, new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                System.out.printf("Current Beat ms: %d%n", conductor.getPosition());
+                // Main.logger.log(Level.INFO, String.format("Current Beat ms: %d%n", conductor.getPosition()));
                 conductor.incrementPosition();
                 conductor.updateNotes();
                 conductor.updateNotePosition();
@@ -86,8 +76,6 @@ public class FrameController {
                 frame.repaint();
             }
         }).start();
-
-        music.play();
     }
 
     public void setResizableTrue() {
@@ -105,5 +93,24 @@ public class FrameController {
 
         Image image = originalImage.getImage();
         return new ImageIcon(image.getScaledInstance(newWidth, maxHeight, java.awt.Image.SCALE_SMOOTH));
+    }
+
+    private void setBackgroundImage(String path)
+    {
+         try {
+            JLabel background = new JLabel();
+            ImageIcon backgroundImage = scaleImage(frame.getHeight(), ImageIconParser.getImageIcon(path));
+            int xPos = (frame.getWidth() / 2) - (backgroundImage.getIconWidth() / 2);
+
+            background.setIcon(backgroundImage);
+            background.setBounds(xPos, 0, backgroundImage.getIconWidth(), backgroundImage.getIconHeight());
+            frame.getLayeredPane().add(background, PaneConstants.BACKGROUND);
+
+            Main.logger.log(Level.INFO, "Background loaded");
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            Main.logger.log(Level.WARNING, "Background failed to load");
+            e1.printStackTrace();
+        }
     }
 }

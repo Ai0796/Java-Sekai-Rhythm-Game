@@ -14,7 +14,7 @@ public class TimingPoint {
     {
         String[] splitList = TimingPointStr.split("\\s*,\\s*");
 
-        time = Integer.parseInt(splitList[0]);
+        time = (int) Double.parseDouble(splitList[0]); //Some files have doubles due to errors in saving
         beatLength = Double.parseDouble(splitList[1]);
         meter = Integer.parseInt(splitList[2]);
         sampleSet = Integer.parseInt(splitList[3]);

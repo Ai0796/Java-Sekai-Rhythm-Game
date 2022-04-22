@@ -1,5 +1,6 @@
 package main;
 
+import java.util.logging.Level;
 import java.util.ArrayList;
 
 import main.gui.RhythmScreen;
@@ -35,6 +36,7 @@ public class Conductor {
 
     public Conductor(RhythmScreen rhythmScreen, Beatmap beatmap, Config config)
     {
+        this.lastInstant = System.currentTimeMillis();
         this.position = 0;
         this.rhythmScreen = rhythmScreen;
         this.beatmap = beatmap;
@@ -44,7 +46,6 @@ public class Conductor {
         this.lanes = rhythmScreen.getLanes();
         this.laneSize = LANES_TOTAL_SIZE / this.lanes.length;
         this.notes = new ArrayList<TapNote>();
-        this.lastInstant = System.currentTimeMillis();
 
         this.currentHitObject = this.beatmap.osuHitObjects.getNextHitObject();
         this.currentTimingPoint = this.beatmap.osuTimingPoints.getNextTimingPoint();
@@ -85,7 +86,7 @@ public class Conductor {
             notePosition = this.notes.get(i).getPosition(this.position);
             if(notePosition > (1 + BUFFER_SIZE / size))
             {
-                System.out.printf("Removed Note at time: %d%n", this.position);
+                Main.logger.log(Level.INFO, String.format("Removed Note at time: %d%n", this.position));
                 removeList.add(i);
             }
         }
@@ -112,7 +113,7 @@ public class Conductor {
                 TapNote note = new TapNote(this.rhythmScreen.getFrame(), this.lanes[lane], this.currentHitObject.time, this.size);
                 notes.add(note);
 
-                System.out.printf("Added Note at time: %d%n", this.position);
+                Main.logger.log(Level.INFO, String.format("Added Note at time: %d%n", this.position));
 
                 this.currentHitObject = this.beatmap.osuHitObjects.getNextHitObject();
             }
@@ -139,6 +140,6 @@ public class Conductor {
     }
 
     public void updateNotePosition(){
-        notes.forEach((note) -> note.DrawPosition(this.position));
+        notes.forEach((note) -> note.drawPosition(this.position));
     }
 }

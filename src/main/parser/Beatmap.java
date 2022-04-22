@@ -1,10 +1,11 @@
 package main.parser;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
 
+import main.Main;
 import main.parser.types.OsuColours;
 import main.parser.types.OsuDifficulty;
 import main.parser.types.OsuEditor;
@@ -81,7 +82,7 @@ public class Beatmap {
                 //Checks if it's a change in type or data
                 else if (line.charAt(0) == '[')
                 {
-                    System.out.println("Found type: " + line);
+                    Main.logger.log(Level.INFO, "Found type: ".concat(line));
 
                     switch (line)
                     {
@@ -110,7 +111,7 @@ public class Beatmap {
                             currentObject = osuHitObjects;
                             break;
                         default:
-                            System.out.println("Error, type " + line + " not found");
+                            Main.logger.log(Level.WARNING, "Error, type " + line + " not found");
                     }
                 }
 
@@ -124,13 +125,11 @@ public class Beatmap {
                 line = reader.readLine();
             }
 
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (IOException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         
-        System.out.println("Parsing Beatmap File Finished");
+        Main.logger.log(Level.INFO, "Parsing Beatmap File Finished");
     }
 }
