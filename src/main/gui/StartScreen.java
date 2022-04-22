@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import main.FrameController;
+import main.PaneConstants;
 import main.settings.Config;
 
 public class StartScreen implements InnerBaseGui{
@@ -29,11 +30,11 @@ public class StartScreen implements InnerBaseGui{
         this.config = config;
         this.frame = frame;
 
-        frame.getContentPane().setBackground(Color.DARK_GRAY);
+        frame.getLayeredPane().setOpaque(false);
         
         startButton = new JButton("Press To Start");
 
-        frame.getContentPane().add(startButton);
+        frame.getLayeredPane().add(startButton, PaneConstants.FOREGROUND);
 
         //Resizes on windows size change
         frame.addComponentListener(new ComponentAdapter() {

@@ -10,7 +10,7 @@ public class RhythmScreen implements InnerBaseGui{
     private JFrame frame;
 
     private static final double LANE_WIDTH_RATIO = 1.0 / 10.0;
-    private static final double LANE_HEIGHT_RATIO = 1.0;
+    private static final double LANE_HEIGHT_RATIO = 1.25; //Make it slightly bigger than the screen to not see the top/bot borders
     private Lane[] lanes;
     
     public RhythmScreen(JFrame frame, Config config){
@@ -19,25 +19,25 @@ public class RhythmScreen implements InnerBaseGui{
 
         lanes = new Lane[config.getLanes()];
 
-        double laneWidth = this.frame.getContentPane().getSize().getWidth() * LANE_WIDTH_RATIO;
-        double laneHeight = this.frame.getContentPane().getSize().getHeight() * LANE_HEIGHT_RATIO;
+        double laneWidth = this.frame.getLayeredPane().getSize().getWidth() * LANE_WIDTH_RATIO;
+        double laneHeight = this.frame.getLayeredPane().getSize().getHeight() * LANE_HEIGHT_RATIO;
+
+        double startLocation = (laneWidth / 2.0 + (laneWidth * (config.getLanes() / -2.0)));
+        int xPos, yPos;
 
         //Create the lanes for the rhythm game
         for(int i = 0; i < config.getLanes(); i++){
             //Calculates lane positions in a method that centers the lanes
-            int xPos = (int) (laneWidth / 2.0 + (laneWidth * (i - (config.getLanes() / 2.0))));
 
-            //Add the width to center the lanes
-            xPos += this.frame.getContentPane().getSize().getWidth() / 2;
+            //Add half the width to center the lanes
+            xPos = (int) Math.round(startLocation + this.frame.getLayeredPane().getSize().getWidth() / 2);
+            yPos = (int) (this.frame.getLayeredPane().getSize().getHeight() / 2.0);
 
-            int yPos = (int) (laneHeight / 2.0);
             Lane lane = new Lane(xPos, yPos, this.frame, (int) laneWidth, (int) laneHeight);
             lanes[i] = lane;
-        }
-    }
 
-    public void startGame(){
-        // Conductor conductor = new Conductor(bpm, finalPosition)
+            startLocation += laneWidth;
+        }
     }
 
     public void show(){

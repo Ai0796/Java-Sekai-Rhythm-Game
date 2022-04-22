@@ -4,6 +4,7 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import main.Lane;
+import main.PaneConstants;
 
 public class TapNote implements Note{
 
@@ -27,7 +28,7 @@ public class TapNote implements Note{
         this.width = frame.getWidth() * widthRatio;
         this.size = size;
 
-        frame.getContentPane().add(this.notePanel);
+        frame.getLayeredPane().add(this.notePanel, PaneConstants.NOTES);
     }
 
     public double getPosition(long currentPoint)

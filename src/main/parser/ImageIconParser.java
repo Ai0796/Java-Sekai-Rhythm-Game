@@ -7,6 +7,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class ImageIconParser {
+
+    private ImageIconParser(){}
     
     public static ImageIcon getImageIcon(String path) throws IOException
     {

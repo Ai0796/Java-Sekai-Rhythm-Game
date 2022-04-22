@@ -23,7 +23,7 @@ public class Lane {
         this.lanePanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
         this.lanePanel.setOpaque(false);
 
-        frame.add(this.lanePanel);
+        frame.getLayeredPane().add(this.lanePanel, PaneConstants.FOREGROUND);
 
         setPanelAbsolutePosition(this.lanePanel, this.xPos, this.yPos, this.width, this.height);
     }
