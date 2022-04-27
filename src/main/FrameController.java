@@ -7,6 +7,7 @@ import main.settings.Config;
 
 import javax.swing.ImageIcon;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 import javax.swing.JFrame;
@@ -25,8 +26,9 @@ public class FrameController {
     private SongSelectionScreen songSelectionScreen;
     private Config config;
     private JFrame frame;
+    private ArrayList<String> beatmapFolders;
 
-    public FrameController(Config config){
+    public FrameController(Config config, ExtractBeatmaps beatmaps){
 
         this.config = config;
 
@@ -59,7 +61,7 @@ public class FrameController {
         Beatmap beatmap = new Beatmap("src\\main\\temp_beatmaps\\257607 xi - FREEDOM DiVE.osz\\xi - FREEDOM DiVE (elchxyrlia) [Arles].osu");
         MusicPlayer music = new MusicPlayer("src\\main\\temp_beatmaps\\257607 xi - FREEDOM DiVE.osz\\12 FREEDOM DiVE.mp3");
 
-       setBackgroundImage("src\\main\\temp_beatmaps\\257607 xi - FREEDOM DiVE.osz\\dive.png");
+        setBackgroundImage("src\\main\\temp_beatmaps\\257607 xi - FREEDOM DiVE.osz\\dive.png");
 
         music.play();
         Conductor conductor = new Conductor(rhythmScreen, beatmap, config);
