@@ -73,9 +73,9 @@ public class StartScreen implements InnerBaseGui{
     }
 
     public void show(){
-        frame.getContentPane().removeAll();
+        frame.getLayeredPane().removeAll();
 
-        frame.getContentPane().add(startButton);
+        frame.getLayeredPane().add(startButton);
 
         startButton.setFocusPainted(false);
         startButton.setBackground(Color.CYAN);
@@ -86,8 +86,8 @@ public class StartScreen implements InnerBaseGui{
         this.frame.setVisible(true);
     }
 
-    public void hide(){
-
-        frame.getContentPane().removeAll();
+    public void hide()
+    {
+        frame.getLayeredPane().removeAll();
     }
 }

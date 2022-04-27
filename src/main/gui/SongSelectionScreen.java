@@ -11,11 +11,8 @@ import java.awt.event.KeyListener;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
-import java.util.logging.Level;
 
 import main.FrameController;
-import main.Main;
 import main.PaneConstants;
 import main.parser.Beatmap;
 import main.parser.types.BeatmapDic;
@@ -29,14 +26,8 @@ public class SongSelectionScreen implements InnerBaseGui
     private Config config;
     private int difficultySelect;
     private int songSelect;
-    private int beatmapAmount;
     private HashMap<String, ArrayList<Beatmap>> beatmapDic;
     private String[] beatmapKeys;
-
-    private final int KEY_LEFT = 37;
-    private final int KEY_UP = 38;
-    private final int KEY_RIGHT = 39;
-    private final int KEY_DOWN = 40;
 
     //TODO
     //Temp showcase code
@@ -118,6 +109,13 @@ public class SongSelectionScreen implements InnerBaseGui
         resetObjectPosition(frame.getWidth(), frame.getHeight());
     }
 
+    private void playCurrentSong()
+    {
+        this.hide();
+        Beatmap beatmap = beatmapDic.get(beatmapKeys[this.songSelect]).get(this.difficultySelect);
+        this.frameController.startRhythmGame(beatmap);
+    }
+
     public void show() {
         addListeners();
         this.frame.getLayeredPane().add(this.titleLabel, PaneConstants.FOREGROUND);
@@ -134,7 +132,7 @@ public class SongSelectionScreen implements InnerBaseGui
     }
 
     public void hide() {
-        this.frame.setVisible(false);
+        frame.getLayeredPane().removeAll();
     }
 
     private void updateDifficulty()
@@ -202,21 +200,24 @@ public class SongSelectionScreen implements InnerBaseGui
 
                 switch(keyCode)
                 {
-                    case KEY_LEFT:
+                    case PaneConstants.KEY_LEFT:
                         difficultySelect -= 1;
                         updateDifficulty();
                         break;
-                    case KEY_RIGHT:
+                    case PaneConstants.KEY_RIGHT:
                         difficultySelect += 1;
                         updateDifficulty();
                         break;
-                    case KEY_DOWN:
+                    case PaneConstants.KEY_DOWN:
                         songSelect -= 1;
                         updateSong();
                         break;
-                    case KEY_UP:
+                    case PaneConstants.KEY_UP:
                         songSelect += 1;
                         updateSong();
+                        break;
+                    case PaneConstants.KEY_ENTER:
+                        playCurrentSong();
                         break;
                 }
             }

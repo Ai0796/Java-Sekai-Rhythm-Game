@@ -10,6 +10,9 @@ public class Config {
     private double speed;
     private String buttonFont;
     private int lanes;
+    private int endScreenTime;
+    private int noteDelay;
+    private int frameRate;
 
     public Config(){
         properties = ReadPropertyFile.readFile();
@@ -19,6 +22,9 @@ public class Config {
         speed = Double.parseDouble(properties.getProperty("speed"));
         buttonFont = properties.getProperty("Font");
         lanes = Integer.parseInt(properties.getProperty("lanes"));
+        endScreenTime = Integer.parseInt(properties.getProperty("endScreenTime"));
+        noteDelay = Integer.parseInt(properties.getProperty("noteDelay"));
+        frameRate = Integer.parseInt(properties.getProperty("frameRate"));
     }
 
     public int getX() {
@@ -39,5 +45,17 @@ public class Config {
 
     public int getLanes() {
         return lanes;
+    }
+
+    public int getEndScreenTime() {
+        return endScreenTime;
+    }
+
+    public int getNoteDelay() {
+        return noteDelay;
+    }
+
+    public int getFrameRate() {
+        return frameRate;
     }
 }

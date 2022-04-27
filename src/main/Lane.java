@@ -13,6 +13,7 @@ public class Lane {
     private int width;
     private int height;
     private JPanel lanePanel;
+    private final double thicknessRatio = 1.0 / 20.0;
 
     public Lane(int xPos, int yPos, JFrame frame, int width, int height){
         this.xPos = xPos;
@@ -20,7 +21,7 @@ public class Lane {
         this.width = width;
         this.height = height;
         this.lanePanel = new JPanel();
-        this.lanePanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+        this.lanePanel.setBorder(BorderFactory.createLineBorder(Color.BLUE, (int) (width * thicknessRatio)));
         this.lanePanel.setOpaque(false);
 
         frame.getLayeredPane().add(this.lanePanel, PaneConstants.FOREGROUND);

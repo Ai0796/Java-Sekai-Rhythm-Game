@@ -1,5 +1,9 @@
 package main.parser.types;
 
+import java.util.logging.Level;
+
+import main.Main;
+
 public class OsuDifficulty extends Parser {
     public double HPDrainRate;
     public double CircleSize;
@@ -36,7 +40,7 @@ public class OsuDifficulty extends Parser {
                 SliderTickRate = Double.parseDouble(data);
                 break;
             default:
-                System.out.println("Error, " + name + " does not match any key");
+                Main.logger.log(Level.INFO, "Error, " + name + " does not match any key");
         }
     }
 }

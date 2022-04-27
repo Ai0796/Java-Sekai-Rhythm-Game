@@ -1,10 +1,7 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.logging.*;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
 
 import main.settings.Config;
 

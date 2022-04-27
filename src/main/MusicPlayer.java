@@ -48,4 +48,14 @@ class MusicPlayer{
             jlPlayer.close();
         }
     }
+
+    public boolean isComplete()
+    {
+        if (jlPlayer != null) {
+            return jlPlayer.isComplete();
+        }
+
+        //Default
+        return false;
+    }
 }

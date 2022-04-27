@@ -1,5 +1,9 @@
 package main.parser.types;
 
+import java.util.logging.Level;
+
+import main.Main;
+
 public class OsuGeneral extends Parser {
 
     public String AudioFilename;
@@ -91,7 +95,7 @@ public class OsuGeneral extends Parser {
                 SamplesMatchPlaybackRate = Integer.parseInt(data) == 1;
                 break;
             default:
-                System.out.println("Error, " + name + " does not match any key");
+                Main.logger.log(Level.INFO, "Error, " + name + " does not match any key");
         }
     }
 }

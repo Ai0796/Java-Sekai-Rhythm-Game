@@ -1,5 +1,9 @@
 package main.parser.types;
 
+import java.util.logging.Level;
+
+import main.Main;
+
 public class OsuMetadata extends Parser {
 
     public String Title;
@@ -54,7 +58,7 @@ public class OsuMetadata extends Parser {
                     BeatmapSetID = Integer.parseInt(data);
                     break;
                 default:
-                    System.out.println("Error, " + name + " does not match any key");
+                    Main.logger.log(Level.INFO, "Error, " + name + " does not match any key");
             }
         }
     }

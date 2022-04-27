@@ -1,6 +1,7 @@
 package main.parser;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -29,6 +30,7 @@ public class Beatmap {
     public OsuHitObjects osuHitObjects;
 
     public String Path;
+    public String Folder;
 
     public Beatmap()
     {
@@ -60,7 +62,13 @@ public class Beatmap {
         String line;
         Parser currentObject = null;
 
+        this.Path = path;
+
         try {
+            //Used to get the path
+            File file = new File(path);
+            this.Path = path;
+            this.Folder = file.getParent();
             reader = new BufferedReader(new FileReader(path));
             line = reader.readLine();
             while(line != null){

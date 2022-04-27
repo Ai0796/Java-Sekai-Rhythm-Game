@@ -12,6 +12,8 @@ import main.settings.Config;
 
 public class Conductor {
 
+    private int delay;
+
     private long position;
     private long finalPosition;
     private long lastInstant;
@@ -45,7 +47,8 @@ public class Conductor {
         this.finalPosition = beatmap.osuHitObjects.getLength();
         this.lanes = rhythmScreen.getLanes();
         this.laneSize = LANES_TOTAL_SIZE / this.lanes.length;
-        this.notes = new ArrayList<TapNote>();
+        this.notes = new ArrayList<>();
+        this.delay = config.getNoteDelay();
 
         this.currentHitObject = this.beatmap.osuHitObjects.getNextHitObject();
         this.currentTimingPoint = this.beatmap.osuTimingPoints.getNextTimingPoint();
@@ -71,11 +74,10 @@ public class Conductor {
     public long getFinalPosition(){
         return this.finalPosition;
     }
-
     
     public void updateNotes()
     {
-        ArrayList<Integer> removeList = new ArrayList<Integer>();
+        ArrayList<Integer> removeList = new ArrayList<>();
         double notePosition;
 
         //Removes all notes outside of the field
@@ -86,7 +88,7 @@ public class Conductor {
             notePosition = this.notes.get(i).getPosition(this.position);
             if(notePosition > (1 + BUFFER_SIZE / size))
             {
-                Main.logger.log(Level.INFO, String.format("Removed Note at time: %d%n", this.position));
+                Main.logger.log(Level.INFO, String.format("Removed Note at time: %d", this.position));
                 removeList.add(i);
             }
         }
@@ -110,12 +112,16 @@ public class Conductor {
                 {
                     lane = this.lanes.length - 1;
                 }
-                TapNote note = new TapNote(this.rhythmScreen.getFrame(), this.lanes[lane], this.currentHitObject.time, this.size);
+                TapNote note = new TapNote(this.rhythmScreen.getFrame(), this.lanes[lane], this.currentHitObject.time, this.size, this.delay);
                 notes.add(note);
 
-                Main.logger.log(Level.INFO, String.format("Added Note at time: %d%n", this.position));
+                Main.logger.log(Level.INFO, String.format("Added Note at time: %d", this.position));
 
                 this.currentHitObject = this.beatmap.osuHitObjects.getNextHitObject();
+                if(this.currentHitObject == null)
+                {
+                    break;
+                }
             }
         }
 
@@ -129,12 +135,19 @@ public class Conductor {
             while(this.currentTimingPoint.time < this.position)
             {
                 this.currentTimingPoint = this.beatmap.osuTimingPoints.getNextTimingPoint();
+                if(this.currentTimingPoint == null)
+                {
+                    break;
+                }
             }
-            
-            //negative numbers inherit the previous bpm
-            if(this.currentTimingPoint.beatLength >= 0)
+            if (this.currentTimingPoint != null)
             {
-                this.bpm = 1.0 / this.currentTimingPoint.beatLength * 1000 * 60;
+                //negative numbers inherit the previous bpm
+                //Two if statements due to possible nullification
+                if(this.currentTimingPoint.beatLength >= 0)
+                {
+                    this.bpm = 1.0 / this.currentTimingPoint.beatLength * 1000 * 60;
+                }
             }
         }
     }

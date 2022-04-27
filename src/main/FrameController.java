@@ -9,7 +9,6 @@ import main.settings.Config;
 
 import javax.swing.ImageIcon;
 
-import java.util.ArrayList;
 import java.util.logging.Level;
 
 import javax.swing.JFrame;
@@ -28,7 +27,6 @@ public class FrameController {
     private SongSelectionScreen songSelectionScreen;
     private Config config;
     private JFrame frame;
-    private ArrayList<String> beatmapFolders;
     private BeatmapDic beatmapDic;
 
     public FrameController(Config config){
@@ -39,6 +37,7 @@ public class FrameController {
         frame = new JFrame("Stage");
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setFocusable(true);
         frame.setLayout(null);
         frame.setSize(config.getX(), config.getY());
 
@@ -58,8 +57,9 @@ public class FrameController {
         songSelectionScreen.show();
     }
 
-    public void startRhythmGame(){
+    public void startRhythmGame(Beatmap beatmap){
         startScreen.hide();
+        songSelectionScreen.hide();
         RhythmScreen rhythmScreen = new RhythmScreen(frame, config);
 
         this.setResizableFalse();
@@ -68,19 +68,28 @@ public class FrameController {
         frame.validate();
         frame.repaint();
 
-        Beatmap beatmap = new Beatmap("src\\main\\temp_beatmaps\\257607 xi - FREEDOM DiVE.osz\\xi - FREEDOM DiVE (elchxyrlia) [Arles].osu");
-        MusicPlayer music = new MusicPlayer("src\\main\\temp_beatmaps\\257607 xi - FREEDOM DiVE.osz\\12 FREEDOM DiVE.mp3");
-
-        setBackgroundImage("src\\main\\temp_beatmaps\\257607 xi - FREEDOM DiVE.osz\\dive.png");
+        String beatMapFolder = beatmap.Folder;
+        String beatMapMusicPath = beatMapFolder + "//" + beatmap.osuGeneral.AudioFilename;
+        
+        MusicPlayer music = new MusicPlayer(beatMapMusicPath);
+        
+        //TODO After adding events
+        //String beatMapBackgroundImage = beatmap.Path.concat(beatmap.osuGeneral.);//
+        //setBackgroundImage("src\\main\\temp_beatmaps\\257607 xi - FREEDOM DiVE.osz\\dive.png");
 
         music.play();
         Conductor conductor = new Conductor(rhythmScreen, beatmap, config);
 
         Main.logger.log(Level.INFO, String.format("Conductor loaded at: %d", System.currentTimeMillis()));
-        new Timer(16, new ActionListener() {
+        new Timer(1000 / config.getFrameRate(), new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                // Main.logger.log(Level.INFO, String.format("Current Beat ms: %d%n", conductor.getPosition()));
                 conductor.incrementPosition();
+                if(conductor.getFinalPosition() + config.getEndScreenTime() < conductor.getPosition() && music.isComplete())
+                {
+                    ((Timer) e.getSource()).stop();
+                    setResizableTrue();
+                    startSongSelection();
+                }
                 conductor.updateNotes();
                 conductor.updateNotePosition();
                 frame.invalidate();
