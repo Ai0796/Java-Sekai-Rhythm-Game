@@ -2,6 +2,7 @@ package main;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
+import javazoom.jl.player.jlp;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -57,5 +58,10 @@ class MusicPlayer{
 
         //Default
         return false;
+    }
+
+    public long getPosition()
+    {
+        return jlPlayer.getPosition();
     }
 }

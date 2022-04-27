@@ -1,17 +1,12 @@
 package main;
 
-import java.beans.BeanProperty;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 
-import main.parser.Beatmap;
-import main.parser.types.BeatmapDic;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.nio.file.Files;
 
 public class ExtractBeatmaps {

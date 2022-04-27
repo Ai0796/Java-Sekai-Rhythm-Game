@@ -125,7 +125,7 @@ public class Beatmap {
                 }
 
                 else {
-                    if(currentObject != null)
+                    if(currentObject != null && !line.startsWith("/"))
                     {
                         currentObject.parse(line);
                     }

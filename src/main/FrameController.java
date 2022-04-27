@@ -5,6 +5,8 @@ import main.parser.Beatmap;
 import main.parser.ImageIconParser;
 import main.parser.ParseBeatmapPaths;
 import main.parser.types.BeatmapDic;
+import main.parser.types.primitives.Event;
+import main.parser.types.primitives.Background;
 import main.settings.Config;
 
 import javax.swing.ImageIcon;
@@ -69,13 +71,30 @@ public class FrameController {
         frame.repaint();
 
         String beatMapFolder = beatmap.Folder;
-        String beatMapMusicPath = beatMapFolder + "//" + beatmap.osuGeneral.AudioFilename;
+        String beatMapMusicPath = beatMapFolder + "/" + beatmap.osuGeneral.AudioFilename;
         
         MusicPlayer music = new MusicPlayer(beatMapMusicPath);
         
-        //TODO After adding events
-        //String beatMapBackgroundImage = beatmap.Path.concat(beatmap.osuGeneral.);//
-        //setBackgroundImage("src\\main\\temp_beatmaps\\257607 xi - FREEDOM DiVE.osz\\dive.png");
+        Boolean isBackground = false;
+        Event event = null;
+
+        while(!isBackground)
+        {
+            event = beatmap.osuEvents.getNextEvent();
+            if(event == null)
+            {
+                break;
+            }
+            else{
+                isBackground = event.isBackground();
+            }
+        }
+
+        if(event != null && event.isBackground())
+        {
+            String beatMapBackgroundImage = beatMapFolder + "/" + ((Background) event).filename;
+            setBackgroundImage(beatMapBackgroundImage);
+        }
 
         music.play();
         Conductor conductor = new Conductor(rhythmScreen, beatmap, config);

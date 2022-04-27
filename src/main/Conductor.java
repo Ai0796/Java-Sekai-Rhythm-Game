@@ -67,6 +67,11 @@ public class Conductor {
         return this.position;
     }
 
+    public void setPosition(long position)
+    {
+        this.position = position;
+    }
+
     public double getbpm(){
         return this.bpm;
     }
