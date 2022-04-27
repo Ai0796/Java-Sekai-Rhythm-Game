@@ -28,6 +28,8 @@ public class Beatmap {
     public OsuColours osuColours;
     public OsuHitObjects osuHitObjects;
 
+    public String Path;
+
     public Beatmap()
     {
         osuGeneral = new OsuGeneral();
@@ -82,7 +84,6 @@ public class Beatmap {
                 //Checks if it's a change in type or data
                 else if (line.charAt(0) == '[')
                 {
-                    Main.logger.log(Level.INFO, "Found type: ".concat(line));
 
                     switch (line)
                     {

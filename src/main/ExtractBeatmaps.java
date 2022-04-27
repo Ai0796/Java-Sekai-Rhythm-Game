@@ -18,16 +18,11 @@ public class ExtractBeatmaps {
 
     private static final String BEATMAP_PATH = "src\\main\\beatmaps";
     private static final String OUTPUT_PATH = "src\\main\\temp_beatmaps";
-    private static final String FILE_EXTENSION = "osz";
+    private static final String FILE_EXTENSION = ".osz";
 
-    private BeatmapDic beatmapFolders;
+    private ExtractBeatmaps() {}
 
-    public ExtractBeatmaps() {
-        beatmapFolders = new BeatmapDic();
-        main();
-    }
-
-    public void main() {
+    public static void main() {
         File dir = new File(BEATMAP_PATH);
         try {
             Files.createDirectories(Paths.get(OUTPUT_PATH));
@@ -38,10 +33,10 @@ public class ExtractBeatmaps {
         extractFiles(dir.listFiles());
     }
 
-    public void extractFiles(File[] files){
+    public static void extractFiles(File[] files){
         for (File file : files) {
             //We don't want to extract directories or files that aren't osu beatmaps
-            if (!file.isDirectory() && Objects.equals(file.getName().substring(file.getName().lastIndexOf(".") + 1), FILE_EXTENSION)) { 
+            if (!file.isDirectory() && file.getName().endsWith(FILE_EXTENSION)) { 
 
                 Main.logger.log(Level.INFO, "File Extraced: " + file.getName());
                 try {

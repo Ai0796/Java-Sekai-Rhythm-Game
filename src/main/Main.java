@@ -12,14 +12,14 @@ public class Main {
 
     public static FrameController frameController;
     public static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    
+
     public static void main(String[] args){
 
         logger.log(Level.INFO, "Initializing");
 
         Config config = new Config();
-        ExtractBeatmaps beatmapExtract = new ExtractBeatmaps();
+        ExtractBeatmaps.main();
 
-        frameController = new FrameController(config, beatmapExtract);
+        frameController = new FrameController(config);
     }
 }

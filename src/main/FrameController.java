@@ -3,6 +3,8 @@ package main;
 import main.gui.*;
 import main.parser.Beatmap;
 import main.parser.ImageIconParser;
+import main.parser.ParseBeatmapPaths;
+import main.parser.types.BeatmapDic;
 import main.settings.Config;
 
 import javax.swing.ImageIcon;
@@ -27,10 +29,12 @@ public class FrameController {
     private Config config;
     private JFrame frame;
     private ArrayList<String> beatmapFolders;
+    private BeatmapDic beatmapDic;
 
-    public FrameController(Config config, ExtractBeatmaps beatmaps){
+    public FrameController(Config config){
 
         this.config = config;
+        this.beatmapDic = ParseBeatmapPaths.parse();
 
         frame = new JFrame("Stage");
 
@@ -43,9 +47,15 @@ public class FrameController {
         frame.setContentPane(layeredPane);
 
         startScreen = new StartScreen(frame, config, this);
-        songSelectionScreen = new SongSelectionScreen(frame, config, this);
+        songSelectionScreen = new SongSelectionScreen(frame, config, this, beatmapDic);
 
         startScreen.show();
+    }
+
+    public void startSongSelection()
+    {
+        startScreen.hide();
+        songSelectionScreen.show();
     }
 
     public void startRhythmGame(){

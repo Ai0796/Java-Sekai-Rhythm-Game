@@ -48,7 +48,7 @@ public class StartScreen implements InnerBaseGui{
 
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
-                frameController.startRhythmGame();
+                frameController.startSongSelection();
             }
         });
     }
