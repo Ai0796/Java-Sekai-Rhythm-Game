@@ -1,7 +1,5 @@
 package main.parser.types.primitives;
 
-import java.util.ArrayList;
-
 //Syntax eventType, starttimes, eventParams
 //eventType can be int or String
 public class Event {
@@ -24,9 +22,9 @@ public class Event {
                 return new Video(EventStr);
             case BREAK:
                 return new Break(EventStr);
+            default:
+                return null;
         }
-
-        return null;
     }
 
     private int parseString(String eventType)
