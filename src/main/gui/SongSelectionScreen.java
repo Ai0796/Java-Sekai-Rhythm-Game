@@ -19,6 +19,7 @@ import java.util.logging.Level;
 
 import main.FrameController;
 import main.Main;
+import main.MusicPlayer;
 import main.PaneConstants;
 import main.parser.Beatmap;
 import main.parser.ImageIconParser;
@@ -38,6 +39,7 @@ public class SongSelectionScreen implements InnerBaseGui
     private HashMap<String, ArrayList<Beatmap>> beatmapDic;
     private String[] beatmapKeys;
     private JLabel background;
+    private MusicPlayer music;
 
     //TODO
     //Temp showcase code
@@ -68,6 +70,7 @@ public class SongSelectionScreen implements InnerBaseGui
         this.difficultySelect = 0;
         this.beatmapDic = beatmapDic.getBeatmapDic();
         this.beatmapKeys = this.beatmapDic.keySet().toArray(new String[this.beatmapDic.keySet().size()]);
+        this.music = null;
         
         this.background = new JLabel();
         
@@ -193,6 +196,18 @@ public class SongSelectionScreen implements InnerBaseGui
         this.updateDifficulty(); //Update difficulty text
         this.update();
         this.updateBackgroundImage(beatmap);
+        this.resetMusicPlayer(beatmap.Folder + "\\" + beatmap.osuGeneral.AudioFilename);
+    }
+
+    private void resetMusicPlayer(String path)
+    {
+        if(music != null)
+        {
+            music.close();
+        }
+
+        music = new MusicPlayer(path);
+        music.play();
     }
 
     private void setPosition(JLabel label,int xCenter, int yCenter, int width, int height) {

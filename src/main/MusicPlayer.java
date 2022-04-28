@@ -11,7 +11,7 @@ import java.util.logging.Level;
 
 //Copied from https://www.delftstack.com/howto/java/java-play-mp3/
 //I do not claim ownership of this code
-class MusicPlayer{
+public class MusicPlayer{
 
     private Player jlPlayer;
     private String path;

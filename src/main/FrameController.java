@@ -5,7 +5,6 @@ import main.parser.Beatmap;
 import main.parser.ImageIconParser;
 import main.parser.ParseBeatmapPaths;
 import main.parser.types.BeatmapDic;
-import main.parser.types.primitives.Event;
 import main.parser.types.primitives.Background;
 import main.settings.Config;
 
