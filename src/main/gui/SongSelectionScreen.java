@@ -1,5 +1,6 @@
 package main.gui;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -8,14 +9,22 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 import main.FrameController;
+import main.Main;
 import main.PaneConstants;
 import main.parser.Beatmap;
+import main.parser.ImageIconParser;
 import main.parser.types.BeatmapDic;
+import main.parser.types.primitives.Event;
+import main.parser.types.primitives.Background;
 import main.settings.Config;
 
 public class SongSelectionScreen implements InnerBaseGui
@@ -28,6 +37,7 @@ public class SongSelectionScreen implements InnerBaseGui
     private int songSelect;
     private HashMap<String, ArrayList<Beatmap>> beatmapDic;
     private String[] beatmapKeys;
+    private JLabel background;
 
     //TODO
     //Temp showcase code
@@ -46,7 +56,7 @@ public class SongSelectionScreen implements InnerBaseGui
     double difficultyLabelx = 1.0 / 2.0;
     double difficultyLabely = 5.0 / 6.0;
 
-    double difficultyLabelWidth = 1.0 / 4.0;
+    double difficultyLabelWidth = 1.0 / 3.0;
     double difficultyLabelHeight = 1.0 / 12.0;
 
     public SongSelectionScreen(JFrame frame, Config config, FrameController frameController, BeatmapDic beatmapDic)
@@ -58,11 +68,18 @@ public class SongSelectionScreen implements InnerBaseGui
         this.difficultySelect = 0;
         this.beatmapDic = beatmapDic.getBeatmapDic();
         this.beatmapKeys = this.beatmapDic.keySet().toArray(new String[this.beatmapDic.keySet().size()]);
-
+        
+        this.background = new JLabel();
+        
         this.titleLabel = new JLabel();
         this.difficultyLabel = new JLabel();
 
         this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        this.titleLabel.setBackground(Color.gray);
+        this.difficultyLabel.setBackground(Color.LIGHT_GRAY);
+
+        this.titleLabel.setOpaque(true);
+        this.difficultyLabel.setOpaque(true);
 
         frame.addComponentListener(new ComponentAdapter() {
             @Override
@@ -120,6 +137,7 @@ public class SongSelectionScreen implements InnerBaseGui
         addListeners();
         this.frame.getLayeredPane().add(this.titleLabel, PaneConstants.FOREGROUND);
         this.frame.getLayeredPane().add(this.difficultyLabel, PaneConstants.FOREGROUND);
+        this.frame.getLayeredPane().add(this.background, PaneConstants.BACKGROUND);
         this.frame.setVisible(true);
 
         //Settings default values
@@ -174,6 +192,7 @@ public class SongSelectionScreen implements InnerBaseGui
 
         this.updateDifficulty(); //Update difficulty text
         this.update();
+        this.updateBackgroundImage(beatmap);
     }
 
     private void setPosition(JLabel label,int xCenter, int yCenter, int width, int height) {
@@ -228,5 +247,58 @@ public class SongSelectionScreen implements InnerBaseGui
 
             }
         });
+    }
+
+    // Scales to fit height
+    private ImageIcon scaleImage(int maxHeight, ImageIcon originalImage) {
+        int newWidth = (originalImage.getIconWidth() * maxHeight) / originalImage.getIconHeight();
+
+        Image image = originalImage.getImage();
+        return new ImageIcon(image.getScaledInstance(newWidth, maxHeight, java.awt.Image.SCALE_SMOOTH));
+    }
+
+    private void setCenteredLabelImage(String path, JLabel label, int x , int y, int width, int heigth) {
+        try {
+            ImageIcon image = scaleImage(frame.getHeight(), ImageIconParser.getImageIcon(path));
+            int xPos = x - (image.getIconWidth() / 2);
+            int yPos = y - (image.getIconHeight() / 2);
+
+            label.setIcon(image);
+            label.setBounds(xPos, yPos, image.getIconWidth(), image.getIconHeight());
+
+            Main.logger.log(Level.INFO, "Image loaded");
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            Main.logger.log(Level.WARNING, "Image to load");
+            e1.printStackTrace();
+        }
+    }
+
+    private void updateBackgroundImage(Beatmap beatmap) {
+
+        Background event = null;
+
+        event = beatmap.osuEvents.getFirstBackground();
+
+        if (event != null) {
+            String path = beatmap.Folder + "\\" + event.filename;
+            setBackgroundImage(path);
+        }
+    }
+
+    private void setBackgroundImage(String path) {
+        try {
+            ImageIcon backgroundImage = scaleImage(frame.getHeight(), ImageIconParser.getImageIcon(path));
+            int xPos = (frame.getWidth() / 2) - (backgroundImage.getIconWidth() / 2);
+
+            background.setIcon(backgroundImage);
+            background.setBounds(xPos, 0, backgroundImage.getIconWidth(), backgroundImage.getIconHeight());
+
+            Main.logger.log(Level.INFO, "Background loaded");
+        } catch (IOException e1) {
+            // TODO Auto-generated catch block
+            Main.logger.log(Level.WARNING, "Background failed to load");
+            e1.printStackTrace();
+        }
     }
 }

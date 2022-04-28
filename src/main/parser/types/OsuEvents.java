@@ -2,6 +2,7 @@ package main.parser.types;
 
 import java.util.ArrayList;
 
+import main.parser.types.primitives.Background;
 import main.parser.types.primitives.Event;
 
 public class OsuEvents extends Parser {
@@ -39,5 +40,30 @@ public class OsuEvents extends Parser {
 
         // There isn't end time for most of them
         return events.get(end).startTime - events.get(start).startTime; 
+    }
+
+    public Background getFirstBackground()
+    {
+        boolean isBackground = false;
+        Event event = null;
+        int i = 0;
+
+        while (!isBackground) {
+            event = events.get(i++);
+            if (event == null) {
+                break;
+            } else {
+                isBackground = event.isBackground();
+            }
+        }
+
+        if(event != null && event.isBackground())
+        {
+            return (Background) event;
+        }
+        else
+        {
+            return null;
+        }
     }
 }

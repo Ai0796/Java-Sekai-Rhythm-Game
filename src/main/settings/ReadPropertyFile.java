@@ -14,8 +14,8 @@ import main.Main;
 
 public class ReadPropertyFile {
 
-    private static final String PROPERTIES_PATH = "src\\main\\settings\\config.properties";
-    private static final String DEFAULT_PROPERTIES_PATH = "src\\main\\settings\\default.properties";
+    private static final String PROPERTIES_PATH = "src\\main\\config.properties";
+    private static final String DEFAULT_PROPERTIES_PATH = "src\\main\\default.properties";
 
     private ReadPropertyFile() {}
     

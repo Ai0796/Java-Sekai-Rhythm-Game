@@ -74,27 +74,7 @@ public class FrameController {
         String beatMapMusicPath = beatMapFolder + "/" + beatmap.osuGeneral.AudioFilename;
         
         MusicPlayer music = new MusicPlayer(beatMapMusicPath);
-        
-        Boolean isBackground = false;
-        Event event = null;
-
-        while(!isBackground)
-        {
-            event = beatmap.osuEvents.getNextEvent();
-            if(event == null)
-            {
-                break;
-            }
-            else{
-                isBackground = event.isBackground();
-            }
-        }
-
-        if(event != null && event.isBackground())
-        {
-            String beatMapBackgroundImage = beatMapFolder + "/" + ((Background) event).filename;
-            setBackgroundImage(beatMapBackgroundImage);
-        }
+        updateBackgroundImage(beatmap);
 
         music.play();
         Conductor conductor = new Conductor(rhythmScreen, beatmap, config);
@@ -135,9 +115,23 @@ public class FrameController {
         return new ImageIcon(image.getScaledInstance(newWidth, maxHeight, java.awt.Image.SCALE_SMOOTH));
     }
 
-    private void setBackgroundImage(String path)
+    public void updateBackgroundImage(Beatmap beatmap)
     {
-         try {
+        Background event = null;
+
+        event = beatmap.osuEvents.getFirstBackground();
+        
+        if(event != null)
+        {
+            String path = beatmap.Folder + "\\" + event.filename;
+            setBackgroundImage(path);
+        }
+    }
+
+    public void setBackgroundImage(String path)
+    {
+        try 
+        {
             JLabel background = new JLabel();
             ImageIcon backgroundImage = scaleImage(frame.getHeight(), ImageIconParser.getImageIcon(path));
             int xPos = (frame.getWidth() / 2) - (backgroundImage.getIconWidth() / 2);
