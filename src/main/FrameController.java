@@ -81,20 +81,23 @@ public class FrameController {
         Main.logger.log(Level.INFO, String.format("Conductor loaded at: %d", System.currentTimeMillis()));
         new Timer(1000 / config.getFrameRate(), new ActionListener() {
             public void actionPerformed(ActionEvent e){
-                conductor.incrementPosition();
+                conductor.update();
                 if(conductor.getFinalPosition() + config.getEndScreenTime() < conductor.getPosition() && music.isComplete())
                 {
                     ((Timer) e.getSource()).stop();
                     setResizableTrue();
                     startSongSelection();
                 }
-                conductor.updateNotes();
-                conductor.updateNotePosition();
-                frame.invalidate();
-                frame.validate();
-                frame.repaint();
+                repaint();
             }
         }).start();
+    }
+
+    private void repaint()
+    {
+        frame.invalidate();
+        frame.validate();
+        frame.repaint();
     }
 
     public void setResizableTrue() {

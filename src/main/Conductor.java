@@ -56,7 +56,14 @@ public class Conductor {
         updateNotes();
     }
 
-    public void incrementPosition(){
+    public void update()
+    {
+        this.incrementPosition();
+        this.updateNotes();
+        this.updateNotePosition();
+    }
+
+    private void incrementPosition(){
         long increment = System.currentTimeMillis() - this.lastInstant;
         this.lastInstant = System.currentTimeMillis();
 
@@ -80,7 +87,7 @@ public class Conductor {
         return this.finalPosition;
     }
     
-    public void updateNotes()
+    private void updateNotes()
     {
         ArrayList<Integer> removeList = new ArrayList<>();
         double notePosition;
@@ -157,7 +164,7 @@ public class Conductor {
         }
     }
 
-    public void updateNotePosition(){
+    private void updateNotePosition(){
         notes.forEach((note) -> note.drawPosition(this.position));
     }
 }

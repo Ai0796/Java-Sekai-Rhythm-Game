@@ -152,7 +152,11 @@ public class SongSelectionScreen implements InnerBaseGui
         update();
     }
 
-    public void hide() {
+    public void hide() 
+    {
+        if (music != null) {
+            music.close();
+        }
         frame.getLayeredPane().removeAll();
     }
 
